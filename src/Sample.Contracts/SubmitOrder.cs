@@ -1,5 +1,3 @@
-﻿namespace Sample.Contracts;
+namespace Sample.Contracts;
 
-public class SubmitOrder
-{
-}
+public record SubmitOrder(Guid OrderId);

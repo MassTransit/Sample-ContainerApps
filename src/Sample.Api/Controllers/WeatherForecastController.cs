@@ -1,16 +1,14 @@
+namespace Sample.Api.Controllers;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace Sample.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController :
     ControllerBase
 {
-    static readonly string[] Summaries =
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+    static readonly string[] Summaries = { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 
     readonly ILogger<WeatherForecastController> _logger;
 
