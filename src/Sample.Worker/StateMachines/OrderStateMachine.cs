@@ -38,6 +38,7 @@ public class OrderStateMachine :
             When(OrderSubmitted)
                 .Then(context =>
                 {
+                    context.Saga.Submitted = context.SentTime ?? DateTime.UtcNow;
                     context.Saga.FulfillmentDelay = context.Message.FulfillmentDelay ?? TimeSpan.FromMinutes(Random.Shared.Next(1, 30));
                 })
                 .TransitionTo(Submitted)
