@@ -16,10 +16,14 @@ public static class MassTransitConfigurationExtensions
         {
             configurator.SetKebabCaseEndpointNameFormatter();
 
+            configurator.AddServiceBusMessageScheduler();
+
             configureMassTransit?.Invoke(configurator);
 
             configurator.UsingAzureServiceBus((context, cfg) =>
             {
+                cfg.UseServiceBusMessageScheduler();
+
                 cfg.Host(hostContext.Configuration.GetConnectionString("ServiceBus"));
 
                 cfg.Publish<OrderMessage>(x => x.Exclude = true);

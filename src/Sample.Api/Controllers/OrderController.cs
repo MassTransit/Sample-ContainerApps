@@ -30,7 +30,18 @@ public class OrderController :
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Order order, [FromServices] IRequestClient<SubmitOrder> client)
     {
-        Response<OrderSubmissionAccepted> response = await client.GetResponse<OrderSubmissionAccepted>(new SubmitOrder(order.OrderId));
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        // this is purely to allow the delay to be specified for demonstration purposes
+        // otherwise, it is randomly assigned
+        TimeSpan? fulfillmentDelay = default;
+        if (Request.Headers.TryGetValue("Fulfillment-Delay", out var values) && int.TryParse(values.ToString(), out var delayInMinutes))
+            fulfillmentDelay = TimeSpan.FromMinutes(delayInMinutes);
+
+        var submitOrder = new SubmitOrder(order.OrderId, fulfillmentDelay);
+
+        Response<OrderSubmissionAccepted> response = await client.GetResponse<OrderSubmissionAccepted>(submitOrder);
 
         return Ok(new { response.Message.OrderId });
     }

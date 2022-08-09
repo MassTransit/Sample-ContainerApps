@@ -1,17 +1,17 @@
 using MassTransit;
 using Sample;
-using Sample.Contracts;
+using Sample.Worker.Consumers;
+using Sample.Worker.StateMachines;
 
 var host = Host.CreateDefaultBuilder(args)
     .UseSerilogConfiguration()
     .UseMassTransitConfiguration(x =>
     {
-        x.AddHandler(async (SubmitOrder order, ILogger<SubmitOrder> logger) =>
-        {
-            logger.LogInformation("Consuming Submit Order: {OrderId}", order.OrderId);
+        x.AddConsumer<SubmitOrderConsumer, SubmitOrderConsumerDefinition>();
+        x.AddConsumer<ValidationConsumer>();
 
-            return new OrderSubmissionAccepted(order.OrderId);
-        });
+        x.AddSagaStateMachine<OrderStateMachine, OrderState, OrderStateDefinition>()
+            .MessageSessionRepository();
     })
     .Build();
 
