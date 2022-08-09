@@ -1,3 +1,4 @@
 namespace Sample.Contracts;
 
-public record ValidateOrder(Guid OrderId);
+public record ValidateOrder(Guid OrderId) :
+    OrderMessage(OrderId);

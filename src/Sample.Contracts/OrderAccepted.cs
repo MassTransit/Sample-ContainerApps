@@ -1,3 +1,4 @@
 namespace Sample.Contracts;
 
-public record OrderAccepted(Guid OrderId);
+public record OrderAccepted(Guid OrderId) :
+    OrderMessage(OrderId);

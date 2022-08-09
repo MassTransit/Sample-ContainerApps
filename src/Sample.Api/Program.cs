@@ -1,35 +1,14 @@
 using MassTransit;
+using Sample;
 using Sample.Contracts;
-using Serilog;
-using Serilog.Events;
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .MinimumLevel.Override("MassTransit", LogEventLevel.Information)
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-    .Enrich.FromLogContext()
-    .WriteTo.Console()
-    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog();
+builder.Host.UseSerilogConfiguration();
 
-builder.Services.AddMassTransit(x =>
+builder.Host.UseMassTransitConfiguration(x =>
 {
     x.AddHandler(async (SubmitOrder order) => new OrderSubmissionAccepted(order.OrderId));
-
-    x.SetKebabCaseEndpointNameFormatter();
-
-    x.UsingAzureServiceBus((context, cfg) =>
-    {
-        cfg.Host(builder.Configuration.GetConnectionString("ServiceBus"));
-
-        cfg.Send<SubmitOrder>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-        
-        cfg.ConfigureEndpoints(context);
-    });
 });
 
 builder.Services.AddControllers();
@@ -50,3 +29,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+public partial class Program
+{
+}

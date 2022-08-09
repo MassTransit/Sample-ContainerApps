@@ -1,3 +1,4 @@
 namespace Sample.Contracts;
 
-public record OrderNotFound(Guid OrderId);
+public record OrderNotFound(Guid OrderId) :
+    OrderMessage(OrderId);

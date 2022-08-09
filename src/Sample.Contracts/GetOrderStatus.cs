@@ -1,3 +1,4 @@
 namespace Sample.Contracts;
 
-public record GetOrderStatus(Guid OrderId);
+public record GetOrderStatus(Guid OrderId) : 
+    OrderMessage(OrderId);

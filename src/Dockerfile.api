@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Sample.Api/Sample.Api.csproj", "Sample.Api/"]
 COPY ["Sample.Contracts/Sample.Contracts.csproj", "Sample.Contracts/"]
+COPY ["Sample.Shared/Sample.Shared.csproj", "Sample.Shared/"]
 RUN dotnet restore "Sample.Api/Sample.Api.csproj"
 
 COPY . .
