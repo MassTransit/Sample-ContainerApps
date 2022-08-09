@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{A5465DEB-273C-4621-B708-AFA5E718D2C5}"
 	ProjectSection(SolutionItems) = preProject
 		src\Dockerfile.api = src\Dockerfile.api
+		.github\workflows\BuildDeploy.yml = .github\workflows\BuildDeploy.yml
 	EndProjectSection
 EndProject
 Global
