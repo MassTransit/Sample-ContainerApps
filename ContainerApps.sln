@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D6F846ED-72AB-4933-8941-C6B1EC9CF0A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Api", "src\Sample.Api\Sample.Api.csproj", "{CA14DB58-0D68-40AA-AF1D-51939A9B9427}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Contracts", "src\Sample.Contracts\Sample.Contracts.csproj", "{CD940397-1675-4CE6-807D-0B664D7D06E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{A5465DEB-273C-4621-B708-AFA5E718D2C5}"
+	ProjectSection(SolutionItems) = preProject
+		src\Dockerfile.api = src\Dockerfile.api
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA14DB58-0D68-40AA-AF1D-51939A9B9427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA14DB58-0D68-40AA-AF1D-51939A9B9427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA14DB58-0D68-40AA-AF1D-51939A9B9427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA14DB58-0D68-40AA-AF1D-51939A9B9427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD940397-1675-4CE6-807D-0B664D7D06E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD940397-1675-4CE6-807D-0B664D7D06E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD940397-1675-4CE6-807D-0B664D7D06E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD940397-1675-4CE6-807D-0B664D7D06E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA14DB58-0D68-40AA-AF1D-51939A9B9427} = {D6F846ED-72AB-4933-8941-C6B1EC9CF0A7}
+		{CD940397-1675-4CE6-807D-0B664D7D06E5} = {D6F846ED-72AB-4933-8941-C6B1EC9CF0A7}
+		{A5465DEB-273C-4621-B708-AFA5E718D2C5} = {D6F846ED-72AB-4933-8941-C6B1EC9CF0A7}
+	EndGlobalSection
+EndGlobal
