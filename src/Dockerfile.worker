@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["Sample.Worker/Sample.Worker.csproj", "Sample.Worker/"]
+COPY ["Sample.Contracts/Sample.Contracts.csproj", "Sample.Contracts/"]
+COPY ["Sample.Shared/Sample.Shared.csproj", "Sample.Shared/"]
+RUN dotnet restore "Sample.Worker/Sample.Worker.csproj"
+
+COPY . .
+RUN dotnet publish -c Release -o /app Sample.Worker/Sample.Worker.csproj 
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS publish
+WORKDIR /app
+COPY --from=build /app ./
+EXPOSE 5000
+ENV ASPNETCORE_URLS=http://+:5000
+ENTRYPOINT ["dotnet", "Sample.Worker.dll"]

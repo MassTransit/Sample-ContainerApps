@@ -1,9 +1,12 @@
-using Sample.Worker;
+using MassTransit;
+using Sample;
+using Sample.Contracts;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
+var host = Host.CreateDefaultBuilder(args)
+    .UseSerilogConfiguration()
+    .UseMassTransitConfiguration(x =>
     {
-        services.AddHostedService<Worker>();
+        x.AddHandler(async (SubmitOrder order) => new OrderSubmissionAccepted(order.OrderId));
     })
     .Build();
 

@@ -1,15 +1,10 @@
-using MassTransit;
 using Sample;
-using Sample.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilogConfiguration();
 
-builder.Host.UseMassTransitConfiguration(x =>
-{
-    x.AddHandler(async (SubmitOrder order) => new OrderSubmissionAccepted(order.OrderId));
-});
+builder.Host.UseMassTransitConfiguration();
 
 builder.Services.AddControllers();
 

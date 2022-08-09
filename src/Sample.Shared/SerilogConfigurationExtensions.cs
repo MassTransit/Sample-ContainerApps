@@ -7,7 +7,8 @@ using Serilog.Events;
 
 public static class SerilogConfigurationExtensions
 {
-    public static void UseSerilogConfiguration(this IHostBuilder builder)
+    public static T UseSerilogConfiguration<T>(this T builder)
+        where T : IHostBuilder
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
@@ -19,5 +20,7 @@ public static class SerilogConfigurationExtensions
             .CreateLogger();
 
         builder.UseSerilog();
+
+        return builder;
     }
 }

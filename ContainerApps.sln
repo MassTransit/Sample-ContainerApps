@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", 
 	ProjectSection(SolutionItems) = preProject
 		src\Dockerfile.api = src\Dockerfile.api
 		.github\workflows\BuildDeploy.yml = .github\workflows\BuildDeploy.yml
+		.github\workflows\BuildDeployWorker.yml = .github\workflows\BuildDeployWorker.yml
+		src\Dockerfile.worker = src\Dockerfile.worker
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Worker", "src\Sample.Worker\Sample.Worker.csproj", "{367AAA94-9392-4243-834F-A71539B0B82C}"

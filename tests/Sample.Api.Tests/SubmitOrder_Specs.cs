@@ -12,7 +12,10 @@ public class Submitting_an_order
     public async Task Should_have_the_submitted_status()
     {
         await using WebApplicationFactory<Program> application = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder => builder.ConfigureServices(services => services.AddMassTransitTestHarness()));
+            .WithWebHostBuilder(builder => builder.ConfigureServices(services => services.AddMassTransitTestHarness(x =>
+            {
+                x.AddHandler(async (SubmitOrder order) => new OrderSubmissionAccepted(order.OrderId));
+            })));
 
         using var client = application.CreateClient();
 

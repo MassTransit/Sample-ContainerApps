@@ -8,7 +8,8 @@ using Microsoft.Extensions.Hosting;
 
 public static class MassTransitConfigurationExtensions
 {
-    public static void UseMassTransitConfiguration(this IHostBuilder builder, Action<IBusRegistrationConfigurator>? callback = null)
+    public static T UseMassTransitConfiguration<T>(this T builder, Action<IBusRegistrationConfigurator>? callback = null)
+        where T : IHostBuilder
     {
         builder.UseMassTransit((hostContext, configurator) =>
         {
@@ -23,15 +24,10 @@ public static class MassTransitConfigurationExtensions
                 cfg.Publish<OrderMessage>(x => x.Exclude = true);
                 cfg.Send<OrderMessage>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
 
-                cfg.Send<OrderAccepted>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-                cfg.Send<OrderNotFound>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-                cfg.Send<OrderRejected>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-                cfg.Send<OrderStatus>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-                cfg.Send<OrderValidated>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-                cfg.Send<ValidateOrder>(s => s.UseSessionIdFormatter(c => c.Message.OrderId.ToString("D")));
-
                 cfg.ConfigureEndpoints(context);
             });
         });
+
+        return builder;
     }
 }

@@ -1,13 +1,13 @@
-name: Build/Deploy Sample.Api
+name: Build/Deploy Sample.Worker
 
 on:
   push:
     branches: 
       [ master ]
     paths:
-    - 'src/Sample.Api/**'
+    - 'src/Sample.Worker/**'
     - 'src/Sample.Shared/**'
-    - '.github/workflows/BuildDeploy.yml'
+    - '.github/workflows/BuildDeployWorker.yml'
 
   workflow_dispatch:      
 
@@ -25,7 +25,7 @@ jobs:
       - name: Log in to container registry
         uses: docker/login-action@v1
         with:
-          registry: masstransitcontainers.azurecr.io/containerapps/api
+          registry: masstransitcontainers.azurecr.io/containerapps/worker
           username: ${{ secrets.SAMPLECONTAINERAPP_REGISTRY_USERNAME }}
           password: ${{ secrets.SAMPLECONTAINERAPP_REGISTRY_PASSWORD }}
 
@@ -33,8 +33,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: masstransitcontainers.azurecr.io/containerapps/api:${{ github.sha }}
-          file: ./src/Dockerfile.api
+          tags: masstransitcontainers.azurecr.io/containerapps/worker:${{ github.sha }}
+          file: ./src/Dockerfile.worker
           context: ./src
 
 
@@ -54,5 +54,6 @@ jobs:
         with:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp registry set -n sample-containerapp -g SampleContainerApps --server masstransitcontainers.azurecr.io --username  ${{ secrets.SAMPLECONTAINERAPP_REGISTRY_USERNAME }} --password ${{ secrets.SAMPLECONTAINERAPP_REGISTRY_PASSWORD }}
-            az containerapp update -n sample-containerapp -g SampleContainerApps --image masstransitcontainers.azurecr.io/containerapps/api:${{ github.sha }}
+            az containerapp registry set -n sample-worker -g SampleContainerApps --server masstransitcontainers.azurecr.io --username  ${{ secrets
+            .SAMPLECONTAINERAPP_REGISTRY_USERNAME }} --password ${{ secrets.SAMPLECONTAINERAPP_REGISTRY_PASSWORD }}
+            az containerapp update -n sample-worker -g SampleContainerApps --image masstransitcontainers.azurecr.io/containerapps/worker:${{ github.sha }}
