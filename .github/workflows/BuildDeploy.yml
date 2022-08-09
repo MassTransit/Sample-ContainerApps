@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: masstransitcontainers.azurecr.io/containerapps/api/sample-containerapp:${{ github.sha }}
+          tags: masstransitcontainers.azurecr.io/containerapps/api:${{ github.sha }}
           file: ./src/Dockerfile.api
           context: ./src
 
