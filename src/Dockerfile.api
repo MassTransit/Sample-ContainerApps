@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["Sample.Api/Sample.Api.csproj", "Sample.Api/"]
+COPY ["Sample.Contracts/Sample.Contracts.csproj", "Sample.Contracts/"]
+RUN dotnet restore "Sample.Api/Sample.Api.csproj"
+
+COPY . .
+RUN dotnet publish -c Release -o /app Sample.Api/Sample.Api.csproj 
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS publish
+WORKDIR /app
+COPY --from=build /app ./
+EXPOSE 5000
+ENV ASPNETCORE_URLS=http://+:5000
+ENTRYPOINT ["dotnet", "Sample.Api.dll"]
