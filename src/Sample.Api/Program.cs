@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilogConfiguration();
 
-builder.Host.UseMassTransitConfiguration();
+builder.Host.UseMassTransitConfiguration(configureBus: (_, bus) => bus.AutoStart = true);
 
 builder.Services.AddControllers();
 
